@@ -3,7 +3,7 @@ import Post from './Post';
 import '../../scss/mainPage.scss';
 import { usePosts } from '../PostsContext';
 import { PostProps } from './Post';
-
+import { Link } from 'react-router-dom';
 function MainPage() {
 	const posts = usePosts();
 	return (
@@ -17,8 +17,11 @@ function MainPage() {
 						body={post.body}
 						userId={post.userId}
 						id={post.id}
-						index={index}
-					/>
+					>
+						<Link className="post__see-more-button" to={`post/${index}`}>
+							See more
+						</Link>
+					</Post>
 				))}
 			</ul>
 		</div>

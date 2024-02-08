@@ -6,11 +6,12 @@ export interface PostProps {
 	body: string;
 	userId: number;
 	id: number;
-	index: number;
+	index?: number;
+	children?: React.ReactNode;
 }
 
 function Post(props: PostProps) {
-	const { title, body, userId, id, index } = props;
+	const { title, body, userId, id, index, children } = props;
 	const navigate = useNavigate();
 	return (
 		<li className="main-page__post post">
@@ -20,13 +21,14 @@ function Post(props: PostProps) {
 				<h3 className="post__user-id">User ID: {userId}</h3>
 				<h3 className="post__post-id">Post ID: {id}</h3>
 			</div>
-			<button
+			{/* <button
 				type="button"
 				className="post__see-more-button"
-				onClick={() => navigate('post', { replace: false })}
+				onClick={() => navigate(`post`, { replace: false })}
 			>
 				See more
-			</button>
+			</button> */}
+			{children}
 		</li>
 	);
 }
