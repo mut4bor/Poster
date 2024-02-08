@@ -1,0 +1,37 @@
+@media (min-width: 320px) {
+	.post {
+		display: flex;
+		gap: 10px;
+		flex-direction: column;
+		border: solid wheat 2px;
+		max-width: calc(25% - 20px);
+		min-width: 300px;
+		padding: 10px;
+
+		&__title {
+			text-align: center;
+		}
+		&__content {
+			font-size: 1.1rem;
+			width: 100%;
+			display: block;
+			white-space: nowrap;
+			overflow: hidden;
+			box-sizing: border-box;
+			text-overflow: ellipsis;
+			padding: 5px 0;
+		}
+		&__ids {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			margin-top: auto;
+		}
+		&__see-more-button {
+			padding: 8px;
+			text-align: center;
+			background-color: rgb(240, 240, 240);
+			color: #333;
+		}
+	}
+}

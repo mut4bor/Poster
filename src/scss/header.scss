@@ -1,0 +1,15 @@
+@import './nullStyle';
+@media (min-width: 320px) {
+	.header {
+		width: 100%;
+		min-height: 80px;
+		padding: 10px;
+		background: wheat;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		h1 {
+			color: #000;
+		}
+	}
+}
