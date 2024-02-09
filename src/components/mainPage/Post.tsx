@@ -6,6 +6,7 @@ export interface PostProps {
 	userId: number;
 	id: number;
 	index: number;
+	loading?: number;
 	style?: {}
 	children?: React.ReactNode;
 }

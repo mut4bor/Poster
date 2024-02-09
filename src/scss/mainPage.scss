@@ -1,15 +1,16 @@
 @media (min-width: 320px) {
 	.main-page {
 		&__container {
-			margin: 0 auto;
-			width: 100%;
-			max-width: 1440px;
+			width: 1920px;
 			padding: 10px;
 			display: flex;
 			flex-direction: row;
 			gap: 15px;
 			flex-wrap: wrap;
 			justify-content: center;
+		}
+		&__list {
+			width: 500px;
 		}
 	}
 }

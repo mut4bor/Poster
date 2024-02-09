@@ -3,11 +3,12 @@
 		display: flex;
 		gap: 10px;
 		flex-direction: column;
-		border: solid wheat 2px;
 		max-width: calc(25% - 20px);
+		left: 50% !important;
+		transform: translateX(-50%);
 		min-width: 300px;
 		padding: 10px;
-
+		border: wheat 1px solid;
 		&__title {
 			text-align: center;
 		}
