@@ -4,19 +4,30 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import ErrorPage from './components/errorPage/errorPage';
+import PostPage from './components/postPage/PostPage';
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
+import MainPage from './components/mainPage/MainPage';
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <App />,
+		element: <MainPage />,
+		errorElement: <ErrorPage />,
+	},
+	{
+		path: 'posts/:postId',
+		element: <PostPage />,
 	},
 ]);
 root.render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<Provider store={store}>
+			<RouterProvider router={router} />
+		</Provider>
 	</React.StrictMode>
 );
 

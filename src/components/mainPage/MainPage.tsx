@@ -1,29 +1,48 @@
 import Header from '../Header';
 import Post from './Post';
 import '../../scss/mainPage.scss';
-import { usePosts } from '../PostsContext';
 import { PostProps } from './Post';
-import { Link } from 'react-router-dom';
+
+import { useGetAllPostsQuery } from '../../redux/slices/postsAPiSlice';
+import { FixedSizeGrid as Grid, FixedSizeList as List } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
+import AutoSizer from 'react-virtualized-auto-sizer';
+
 function MainPage() {
-	const posts = usePosts();
+	const { data, error, isLoading } = useGetAllPostsQuery();
+
 	return (
 		<div className="main-page">
 			<Header />
-			<ul className="main-page__container">
-				{posts.map((post: PostProps, index) => (
-					<Post
-						key={index}
-						title={post.title}
-						body={post.body}
-						userId={post.userId}
-						id={post.id}
-					>
-						<Link className="post__see-more-button" to={`post/${index}`}>
-							See more
-						</Link>
-					</Post>
-				))}
-			</ul>
+			{data && (
+				<div className="main-page__container">
+					<AutoSizer>
+						{({ height, width }: { height: number; width: number }) => (
+							<List
+								itemCount={data.length}
+								itemSize={200}
+								className="list"
+								height={height}
+								width={width}
+							>
+								{({ index, style }) => {
+									return (
+										<Post
+											key={index}
+											title={data[index].title}
+											body={data[index].body}
+											userId={data[index].userId}
+											id={data[index].id}
+											index={index}
+											style={style}
+										/>
+									);
+								}}
+							</List>
+						)}
+					</AutoSizer>
+				</div>
+			)}
 		</div>
 	);
 }
