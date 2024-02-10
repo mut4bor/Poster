@@ -1,14 +1,32 @@
-import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { useGetPostByIndexQuery } from 'shared/redux/slices/postsAPiSlice';
+import {
+	useGetPostByIndexQuery,
+	useGetUserByIndexQuery,
+} from 'shared/redux/slices/APISlice';
 import styles from './styles.module.scss';
+import { useNavigate } from 'react-router-dom';
+
+import {
+	Button,
+	Card,
+	CardHeader,
+	CardContent,
+	Avatar,
+	Typography,
+} from '@mui/material';
 
 export function PostDetailed() {
 	const postLocation = useLocation();
-	const postLocationIndex = postLocation.pathname.replace('/posts/', '');
-	const { data, error } = useGetPostByIndexQuery(`${postLocationIndex}`);
+	const postLocationIndex = parseInt(
+		postLocation.pathname.replace('/posts/', '')
+	);
+	const { data: postData, error: postError } =
+		useGetPostByIndexQuery(postLocationIndex);
 
-	if (error) {
+	const { data: userData, error: userError } = useGetUserByIndexQuery(1);
+	const navigate = useNavigate();
+
+	if (postError || userError) {
 		return (
 			<>
 				<div>Error</div>
@@ -18,19 +36,40 @@ export function PostDetailed() {
 
 	return (
 		<>
-			<div className={styles.page}>
-				<div className={styles.post}>
-					<h2 className={styles.title}>{data?.title}</h2>
-					<p className={styles.content}>{data?.body}</p>
-					<div className={styles.ids}>
-						<h2>User ID: {data?.userId}</h2>
-						<h2>Post ID: {data?.id}</h2>
-					</div>
-					<Link className={styles.button} to={'/'}>
+			{postData && userData && (
+				<Card
+					sx={{
+						minWidth: '300px',
+						maxWidth: '800px',
+						margin: '40px auto',
+						padding: '10px',
+					}}
+				>
+					<CardHeader
+						avatar={
+							<Avatar sx={{ bgcolor: '#1976d2' }}>{postData.userId}</Avatar>
+						}
+						title={userData.name}
+						subheader={userData.website}
+					/>
+					<CardContent>
+						<Typography variant="h4" textAlign={'center'}>
+							{postData.title}
+						</Typography>
+						<Typography variant="body1">{postData.body}</Typography>
+					</CardContent>
+					<Button
+						variant="contained"
+						sx={{
+							marginTop: 'auto',
+						}}
+						fullWidth
+						onClick={() => navigate(`/`)}
+					>
 						Back to main page
-					</Link>
-				</div>
-			</div>
+					</Button>
+				</Card>
+			)}
 		</>
 	);
 }

@@ -1,10 +1,15 @@
 import { PostCard } from 'entities/post';
-import { useGetAllPostsQuery } from 'shared/redux/slices/postsAPiSlice';
+import {
+	IUser,
+	useGetAllPostsQuery,
+	useGetAllUsersQuery,
+	useGetUserByIndexQuery,
+} from 'shared/redux/slices/APISlice';
 import { FixedSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import styles from './styles.module.scss';
-
+import { Box, CircularProgress } from '@mui/material';
 const LOADING = 1;
 const LOADED = 2;
 let itemStatusMap = {} as number[];
@@ -20,14 +25,15 @@ const loadMoreItems = (startIndex: number, stopIndex: number) => {
 				itemStatusMap[index] = LOADED;
 			}
 			resolve();
-		}, 1500)
+		}, 0)
 	);
 };
 
 export default function PostsListPage() {
-	const { data, error } = useGetAllPostsQuery();
+	const { data: postsData, error: postsError } = useGetAllPostsQuery();
+	const { data: usersData, error: usersError } = useGetAllUsersQuery();
 
-	if (error) {
+	if (postsError || usersError) {
 		return (
 			<>
 				<div>Error</div>
@@ -37,56 +43,77 @@ export default function PostsListPage() {
 
 	return (
 		<div className={styles.page}>
-			{data && (
+			{postsData && usersData && (
 				<AutoSizer>
 					{({ height, width }: { height: number; width: number }) => (
 						<InfiniteLoader
 							isItemLoaded={isItemLoaded}
-							itemCount={data.length}
+							itemCount={postsData.length}
 							loadMoreItems={loadMoreItems}
 						>
 							{({ onItemsRendered, ref }) => (
 								<List
-									itemCount={data.length}
-									itemSize={220}
+									itemCount={postsData.length}
+									itemSize={320}
 									height={height}
 									width={width}
 									onItemsRendered={onItemsRendered}
 									ref={ref}
-									innerElementType={'ul'}
 								>
 									{({ index, style }) => {
 										return (
-											<PostCard
-												key={index}
-												style={{
-													...style,
-													left: '50%',
-													top: typeof style.top === 'number' && style.top + 20,
-													height:
-														typeof style.height === 'number' &&
-														style.height - 20,
-												}}
-												title={
-													itemStatusMap[index] === LOADED
-														? data[index].title
-														: 'loading'
-												}
-												body={
-													itemStatusMap[index] === LOADED
-														? data[index].body
-														: 'loading'
-												}
-												userId={
-													itemStatusMap[index] === LOADED
-														? data[index].userId
-														: 0
-												}
-												id={
-													itemStatusMap[index] === LOADED ? data[index].id : 0
-												}
-												index={index}
-											/>
+											<>
+												{itemStatusMap[index] === LOADED ? (
+													<PostCard
+														key={index}
+														style={{
+															...style,
+															left: '50%',
+															top:
+																typeof style.top === 'number'
+																	? style.top + 20
+																	: style.top,
+															height:
+																typeof style.height === 'number'
+																	? style.height - 20
+																	: style.height,
+														}}
+														title={postsData[index].title}
+														body={postsData[index].body}
+														userId={postsData[index].userId}
+														id={postsData[index].id}
+														index={index}
+														name={usersData[postsData[index].userId - 1].name}
+														website={
+															usersData[postsData[index].userId - 1].website
+														}
+													/>
+												) : (
+													<Box
+														style={{
+															...style,
+															top:
+																typeof style.top === 'number'
+																	? style.top + 20
+																	: style.top,
+															height:
+																typeof style.height === 'number'
+																	? style.height - 20
+																	: style.height,
+															left: '50%',
+															transform: 'translateX(-50%)',
+															width: '800px',
+														}}
+														display={'flex'}
+														alignItems={'center'}
+														justifyContent={'center'}
+														border={'#1976d2 1px solid'}
+														borderRadius={'5px'}
+													>
+														<CircularProgress />
+													</Box>
+												)}
+											</>
 										);
 									}}
 								</List>
