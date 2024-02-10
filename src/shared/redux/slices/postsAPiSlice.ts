@@ -1,10 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { PostProps } from '../../components/mainPage/Post';
+import type { PostProps } from '../../../entities/post/ui/post-card';
+import { API_URL } from "../../config";
 
 export const postsApi = createApi({
 	reducerPath: 'postApi',
+	
 	baseQuery: fetchBaseQuery({
-		baseUrl: 'https://jsonplaceholder.typicode.com',
+		baseUrl: `${API_URL}`,
 	}),
 	endpoints: (builder) => ({
 		getAllPosts: builder.query<PostProps[], void>({
