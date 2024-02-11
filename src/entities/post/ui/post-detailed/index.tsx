@@ -3,7 +3,6 @@ import {
 	useGetPostByIndexQuery,
 	useGetUserByIndexQuery,
 } from 'shared/redux/slices/APISlice';
-import styles from './styles.module.scss';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -23,7 +22,9 @@ export function PostDetailed() {
 	const { data: postData, error: postError } =
 		useGetPostByIndexQuery(postLocationIndex);
 
-	const { data: userData, error: userError } = useGetUserByIndexQuery(1);
+	const { data: userData, error: userError } = useGetUserByIndexQuery(
+		postData?.userId ? postData?.userId : 0
+	);
 	const navigate = useNavigate();
 
 	if (postError || userError) {
@@ -53,7 +54,7 @@ export function PostDetailed() {
 						subheader={userData.website}
 					/>
 					<CardContent>
-						<Typography variant="h4" textAlign={'center'}>
+						<Typography variant="h4" sx={{ textAlign: 'center' }}>
 							{postData.title}
 						</Typography>
 						<Typography variant="body1">{postData.body}</Typography>

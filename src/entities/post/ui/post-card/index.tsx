@@ -1,10 +1,3 @@
-import styles from './styles.module.scss';
-import {
-	IUser,
-	useGetAllPostsQuery,
-	useGetAllUsersQuery,
-	useGetUserByIndexQuery,
-} from 'shared/redux/slices/APISlice';
 import { useNavigate } from 'react-router-dom';
 import {
 	Button,
@@ -16,7 +9,7 @@ import {
 } from '@mui/material';
 
 export interface PostProps {
-	style?: {};
+	style: object;
 	title: string;
 	body: string;
 	userId: number;
@@ -24,66 +17,58 @@ export interface PostProps {
 	name?: string;
 	website?: string;
 	index: number;
-	loading?: number;
-	children?: React.ReactNode;
 }
 
+const cardStyle = {
+	card: {
+		display: 'flex',
+		gap: '10px',
+		flexDirection: 'column',
+		transform: 'translateX(-50%)',
+		minWidth: '300px',
+		maxWidth: '800px',
+		padding: '10px',
+		border: '1976d2 1px solid',
+		borderRadius: '5px',
+	},
+	body: {
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		fontSize: '1.15rem',
+	},
+};
+
 export function PostCard(props: PostProps) {
-	const { title, body, userId, id, index, children, style, name, website } =
-		props;
+	const { title, body, userId, index, style, name, website } = props;
 	const navigate = useNavigate();
-	const { data: usersData, error: usersError } = useGetAllUsersQuery();
 	return (
 		<>
-			{usersData && (
-				<Card
-					style={style}
+			<Card style={style} sx={cardStyle.card}>
+				<CardHeader
+					avatar={<Avatar sx={{ bgcolor: '#1976d2' }}>{userId}</Avatar>}
+					title={name}
+					subheader={website}
+				/>
+				<CardContent>
+					<Typography variant="h4" sx={{ textAlign: 'center' }}>
+						{title}
+					</Typography>
+					<Typography variant="body1" sx={cardStyle.body}>
+						{body}
+					</Typography>
+				</CardContent>
+				<Button
+					variant="contained"
 					sx={{
-						display: 'flex',
-						gap: '10px',
-						flexDirection: 'column',
-						transform: 'translateX(-50%)',
-						minWidth: '300px',
-						maxWidth: '800px',
-						padding: '10px',
-						border: '1976d2 1px solid',
-						borderRadius: '5px',
+						marginTop: 'auto',
 					}}
+					fullWidth
+					onClick={() => navigate(`posts/${index + 1}`)}
 				>
-					<CardHeader
-						avatar={<Avatar sx={{ bgcolor: '#1976d2' }}>{userId}</Avatar>}
-						title={name}
-						subheader={website}
-					/>
-					<CardContent>
-						<Typography variant="h4" textAlign={'center'}>
-							{title}
-						</Typography>
-						<Typography
-							variant="body1"
-							sx={{
-								textOverflow: 'ellipsis',
-								whiteSpace: 'nowrap',
-								overflow: 'hidden',
-								fontSize: '1.15rem',
-							}}
-						>
-							{body}
-						</Typography>
-					</CardContent>
-					<Button
-						variant="contained"
-						sx={{
-							marginTop: 'auto',
-						}}
-						fullWidth
-						onClick={() => navigate(`posts/${index + 1}`)}
-					>
-						See more
-					</Button>
-					{children}
-				</Card>
-			)}
+					See more
+				</Button>
+			</Card>
 		</>
 	);
 }
