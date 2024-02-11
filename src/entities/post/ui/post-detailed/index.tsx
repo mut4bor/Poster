@@ -63,7 +63,7 @@ export function PostDetailedCard() {
 							marginTop: 'auto',
 						}}
 						fullWidth
-						onClick={() => navigate(`/`)}
+						onClick={() => navigate(`/picasso/`)}
 					>
 						Back to main page
 					</Button>

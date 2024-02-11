@@ -8,12 +8,12 @@ import PostsList from 'pages/posts-list';
 export const Routing = () => {
 	const router = createBrowserRouter([
 		{
-			path: '/',
+			path: '/picasso/',
 			element: <PostsList />,
 			errorElement: <ErrorPage />,
 		},
 		{
-			path: 'posts/:postId',
+			path: '/picasso/posts/:postId',
 			element: <PostPage />,
 		},
 	]);
