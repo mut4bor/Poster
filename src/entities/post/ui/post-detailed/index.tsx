@@ -1,4 +1,3 @@
-import { useLocation } from 'react-router-dom';
 import {
 	useGetPostByIndexQuery,
 	useGetUserByIndexQuery,
@@ -14,13 +13,12 @@ import {
 	Typography,
 } from '@mui/material';
 
-export function PostDetailed() {
-	const postLocation = useLocation();
-	const postLocationIndex = parseInt(
-		postLocation.pathname.replace('/posts/', '')
+import { getPostNumber } from 'shared/getPostNumber';
+
+export function PostDetailedCard() {
+	const { data: postData, error: postError } = useGetPostByIndexQuery(
+		getPostNumber()
 	);
-	const { data: postData, error: postError } =
-		useGetPostByIndexQuery(postLocationIndex);
 
 	const { data: userData, error: userError } = useGetUserByIndexQuery(
 		postData?.userId ? postData?.userId : 0

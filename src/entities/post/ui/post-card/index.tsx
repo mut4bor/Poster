@@ -8,7 +8,7 @@ import {
 	Typography,
 } from '@mui/material';
 
-export interface PostProps {
+interface PostProps {
 	style: object;
 	title: string;
 	body: string;
