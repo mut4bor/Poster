@@ -1,7 +1,7 @@
 import { PostDetailedCard } from 'entities/post';
 import { PostComments } from 'entities/post/ui/post-comments';
 
-function PostDetailsPage() {
+export default function DetailsPage() {
 	return (
 		<>
 			<PostDetailedCard />
@@ -9,5 +9,3 @@ function PostDetailsPage() {
 		</>
 	);
 }
-
-export default PostDetailsPage;

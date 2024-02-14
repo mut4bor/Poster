@@ -29,7 +29,7 @@ const loadMoreItems = (startIndex: number, stopIndex: number) => {
 	);
 };
 
-export default function PostsListPage() {
+export default function MainPage() {
 	const { data: postsData, error: postsError } = useGetAllPostsQuery();
 	const { data: usersData, error: usersError } = useGetAllUsersQuery();
 
@@ -50,7 +50,7 @@ export default function PostsListPage() {
 							{({ onItemsRendered, ref }) => (
 								<List
 									itemCount={postsData.length}
-									itemSize={320}
+									itemSize={260}
 									height={height}
 									width={width}
 									onItemsRendered={onItemsRendered}

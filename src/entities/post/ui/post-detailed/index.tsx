@@ -16,6 +16,7 @@ import {
 import { getPostNumber } from 'shared/getPostNumber';
 
 export function PostDetailedCard() {
+	const baseURL = process.env.REACT_APP_BASE_URL;
 	const { data: postData, error: postError } = useGetPostByIndexQuery(
 		getPostNumber()
 	);
@@ -63,7 +64,7 @@ export function PostDetailedCard() {
 							marginTop: 'auto',
 						}}
 						fullWidth
-						onClick={() => navigate(`/picasso/`)}
+						onClick={() => navigate(`${baseURL}`)}
 					>
 						Back to main page
 					</Button>

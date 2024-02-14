@@ -1,25 +1,28 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from 'pages/error';
-import PostPage from 'pages/posts-details';
 import { store } from 'shared/redux/store';
 import { Provider } from 'react-redux';
-import PostsList from 'pages/posts-list';
+import Header from 'entities/header';
+import MainPage from 'pages/main';
+import DetailsPage from 'pages/details';
 
 export const Routing = () => {
+	const baseURL = process.env.REACT_APP_BASE_URL;
 	const router = createBrowserRouter([
 		{
-			path: '/picasso/',
-			element: <PostsList />,
+			path: baseURL,
+			element: <MainPage />,
 			errorElement: <ErrorPage />,
 		},
 		{
-			path: '/picasso/posts/:postId',
-			element: <PostPage />,
+			path: `${baseURL}/posts/:postId`,
+			element: <DetailsPage />,
 		},
 	]);
 
 	return (
 		<Provider store={store}>
+			<Header />
 			<RouterProvider router={router} />
 		</Provider>
 	);

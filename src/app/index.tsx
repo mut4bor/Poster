@@ -10,9 +10,6 @@ function App() {
 	return (
 		<>
 			<Suspense fallback={'Loading...'}>
-				<header className="header">
-					<h1>Picasso Test Project by Molchanov Matvey</h1>
-				</header>
 				<Routing />
 			</Suspense>
 		</>

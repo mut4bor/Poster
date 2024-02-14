@@ -37,6 +37,12 @@ const cardStyle = {
 		overflow: 'hidden',
 		fontSize: '1.15rem',
 	},
+	title: {
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textAlign: 'center',
+	},
 };
 
 export function PostCard(props: PostProps) {
@@ -51,7 +57,7 @@ export function PostCard(props: PostProps) {
 					subheader={website}
 				/>
 				<CardContent>
-					<Typography variant="h4" sx={{ textAlign: 'center' }}>
+					<Typography variant="h4" sx={cardStyle.title}>
 						{title}
 					</Typography>
 					<Typography variant="body1" sx={cardStyle.body}>
