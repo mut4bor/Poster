@@ -37,6 +37,12 @@ export default function MainPage() {
 		return <div>Error</div>;
 	}
 
+	const isStyleTypeNumber = (
+		styleElement: unknown | undefined
+	): styleElement is number => {
+		return typeof styleElement === 'number' ? true : false;
+	};
+
 	return (
 		<div className={styles.page}>
 			{isDataNotEmpty(postsData) && isDataNotEmpty(usersData) && (
@@ -64,24 +70,18 @@ export default function MainPage() {
 													style={{
 														...style,
 														left: '50%',
-														top:
-															typeof style.top === 'number'
-																? style.top + 20
-																: style.top,
-														height:
-															typeof style.height === 'number'
-																? style.height - 20
-																: style.height,
+														...(
+															isStyleTypeNumber(style.height) &&
+															isStyleTypeNumber(style.top) && {
+																height: style.height - 20,
+																top: style.top + 20,
+															}),
 													}}
-													title={postsData[index].title}
-													body={postsData[index].body}
-													userId={postsData[index].userId}
-													id={postsData[index].id}
-													index={index}
-													name={usersData[postsData[index].userId - 1].name}
-													website={
-														usersData[postsData[index].userId - 1].website
-													}
+													data={{
+														index: index,
+														posts: postsData[index],
+														users: usersData[postsData[index].userId - 1]
+													}}
 												/>
 											);
 										}
@@ -90,23 +90,20 @@ export default function MainPage() {
 											<Box
 												style={{
 													...style,
-													top:
-														typeof style.top === 'number'
-															? style.top + 20
-															: style.top,
-													height:
-														typeof style.height === 'number'
-															? style.height - 20
-															: style.height,
 													left: '50%',
+													...(isStyleTypeNumber(style.height) &&
+														isStyleTypeNumber(style.top) && {
+														height: style.height - 20,
+														top: style.top + 20,
+													}),
 													transform: 'translateX(-50%)',
 													width: '800px',
+													display: 'flex',
+													alignItems: 'center',
+													justifyContent: 'center',
+													border: '#1976d2 1px solid',
+													borderRadius: '5px',
 												}}
-												display={'flex'}
-												alignItems={'center'}
-												justifyContent={'center'}
-												border={'#1976d2 1px solid'}
-												borderRadius={'5px'}
 											>
 												<CircularProgress />
 											</Box>

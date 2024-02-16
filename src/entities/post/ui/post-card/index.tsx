@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { cardStyle } from './style';
 import {
 	Button,
 	Card,
@@ -8,49 +9,33 @@ import {
 	Typography,
 } from '@mui/material';
 
-interface PostProps {
-	style: object;
-	title: string;
-	body: string;
-	userId: number;
-	id: number;
-	name?: string;
-	website?: string;
-	index: number;
+type PostProps = {
+	style: { [string: string]: React.CSSProperties } | React.CSSProperties;
+	data: {
+		index: number;
+		posts:
+		{
+			title: string;
+			body: string;
+			userId: number;
+			id: number;
+		}; 
+		users: {
+			name: string;
+			website: string;
+		};
+	}
 }
 
-const cardStyle = {
-	card: {
-		display: 'flex',
-		gap: '10px',
-		flexDirection: 'column',
-		transform: 'translateX(-50%)',
-		minWidth: '300px',
-		maxWidth: '800px',
-		padding: '10px',
-		border: '1976d2 1px solid',
-		borderRadius: '5px',
-	},
-	body: {
-		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap',
-		overflow: 'hidden',
-		fontSize: '1.15rem',
-	},
-	title: {
-		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap',
-		overflow: 'hidden',
-		textAlign: 'center',
-	},
-};
-
 export function PostCard(props: PostProps) {
-	const { title, body, userId, index, style, name, website } = props;
+	const { style, data } = props;
+	const { posts, users, index } = data;
+	const { name, website } = users;
+	const { userId, title, body } = posts;
 	const navigate = useNavigate();
 	return (
 		<>
-			<Card style={style} sx={cardStyle.card}>
+			<Card sx={{ ...style, ...cardStyle.card }}>
 				<CardHeader
 					avatar={<Avatar sx={{ bgcolor: '#1976d2' }}>{userId}</Avatar>}
 					title={name}
