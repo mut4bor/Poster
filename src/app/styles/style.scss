@@ -2,3 +2,15 @@ body {
 	background: #141414;
 	color: #e1e3e6;
 }
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #d0d0d0;
+	border-radius: 5px;
+	&:hover {
+		background-color: #9a9a9a;
+	}
+}

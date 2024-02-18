@@ -2,6 +2,7 @@
 	.header {
 		width: 100%;
 		height: 50px;
+		z-index: 1;
 		background: #222222;
 		display: flex;
 		align-items: center;
@@ -9,16 +10,17 @@
 		color: #e1e3e6;
 		font-size: 0.7rem;
 		border-bottom: #272727 solid 0.1px;
+		padding-right: 8px;
 	}
 	.container {
-		max-width: 1000px;
+		max-width: 800px;
 		width: 100%;
 		height: 100%;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		padding: 8px 5px;
+		padding: 8px 0px 8px 0;
 	}
 	.titleWrapper {
 		display: flex;
