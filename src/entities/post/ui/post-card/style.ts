@@ -9,8 +9,8 @@ export const cardStyle: { [string: string]: React.CSSProperties } = {
 		padding: '10px',
 		border: '1976d2 1px solid',
 		borderRadius: '5px',
-		background: '#2c2c2c',
-		color: '#eee',
+		background: '#222',
+		color: '#e1e3e6',
 	},
 	body: {
 		textOverflow: 'ellipsis',
@@ -23,6 +23,5 @@ export const cardStyle: { [string: string]: React.CSSProperties } = {
 		whiteSpace: 'nowrap',
 		overflow: 'hidden',
 		textAlign: 'center',
-		color: '#eee',
 	},
 };

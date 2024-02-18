@@ -70,8 +70,7 @@ export default function MainPage() {
 													style={{
 														...style,
 														left: '50%',
-														...(
-															isStyleTypeNumber(style.height) &&
+														...(isStyleTypeNumber(style.height) &&
 															isStyleTypeNumber(style.top) && {
 																height: style.height - 20,
 																top: style.top + 20,
@@ -80,7 +79,7 @@ export default function MainPage() {
 													data={{
 														index: index,
 														posts: postsData[index],
-														users: usersData[postsData[index].userId - 1]
+														users: usersData[postsData[index].userId - 1],
 													}}
 												/>
 											);
@@ -93,9 +92,9 @@ export default function MainPage() {
 													left: '50%',
 													...(isStyleTypeNumber(style.height) &&
 														isStyleTypeNumber(style.top) && {
-														height: style.height - 20,
-														top: style.top + 20,
-													}),
+															height: style.height - 20,
+															top: style.top + 20,
+														}),
 													transform: 'translateX(-50%)',
 													width: '800px',
 													display: 'flex',

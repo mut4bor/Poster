@@ -2,12 +2,13 @@
 	.header {
 		width: 100%;
 		height: 50px;
-		background: #2c2c2c;
+		background: #222222;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: #f3f3f3;
+		color: #e1e3e6;
 		font-size: 0.7rem;
+		border-bottom: #272727 solid 0.1px;
 	}
 	.container {
 		max-width: 1000px;
@@ -58,5 +59,10 @@
 		border-radius: 10px;
 		color: #ccc;
 		padding-left: 40px;
+		transition: 0.15s;
+		&:hover,
+		&:focus {
+			background: #4a4a4a;
+		}
 	}
 }

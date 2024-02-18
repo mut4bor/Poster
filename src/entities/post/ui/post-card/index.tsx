@@ -13,19 +13,18 @@ type PostProps = {
 	style: { [string: string]: React.CSSProperties } | React.CSSProperties;
 	data: {
 		index: number;
-		posts:
-		{
+		posts: {
 			title: string;
 			body: string;
 			userId: number;
 			id: number;
-		}; 
+		};
 		users: {
 			name: string;
 			website: string;
 		};
-	}
-}
+	};
+};
 
 export function PostCard(props: PostProps) {
 	const { style, data } = props;
@@ -37,9 +36,30 @@ export function PostCard(props: PostProps) {
 		<>
 			<Card sx={{ ...style, ...cardStyle.card }}>
 				<CardHeader
-					avatar={<Avatar sx={{ bgcolor: '#1976d2' }}>{userId}</Avatar>}
-					title={name}
-					subheader={website}
+					avatar={
+						<Avatar
+							sx={{
+								bgcolor: 'transparent',
+								border: '2px solid #71aaeb',
+								color: '#e1e3e6',
+							}}
+						>
+							{userId}
+						</Avatar>
+					}
+					title={
+						<p
+							style={{
+								color: '#71aaeb',
+								fontWeight: '500',
+								fontSize: '1.1rem',
+							}}
+						>
+							{name}
+						</p>
+					}
+					subheader={<p style={{ color: '#828282' }}>{website}</p>}
+					sx={{}}
 				/>
 				<CardContent>
 					<Typography variant="h4" sx={cardStyle.title}>
@@ -50,9 +70,11 @@ export function PostCard(props: PostProps) {
 					</Typography>
 				</CardContent>
 				<Button
-					variant="contained"
+					variant="outlined"
 					sx={{
 						marginTop: 'auto',
+						color: '#71aaeb',
+						borderColor: '#71aaeb',
 					}}
 					fullWidth
 					onClick={() => navigate(`posts/${index + 1}`)}

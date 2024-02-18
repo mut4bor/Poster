@@ -25,7 +25,7 @@ export default function Header() {
 								<input
 									className={styled.input}
 									type="text"
-									placeholder="Поиск"
+									placeholder="Search"
 								/>
 							</div>
 						</div>
