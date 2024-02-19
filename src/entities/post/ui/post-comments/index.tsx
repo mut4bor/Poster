@@ -1,3 +1,6 @@
+import { useGetAllCommentsQuery } from 'shared/redux/slices/APISlice';
+import { getPostNumber } from 'shared/getPostNumber';
+
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import InfiniteLoader from 'react-window-infinite-loader';
@@ -8,8 +11,6 @@ import {
 	Avatar,
 	Typography,
 } from '@mui/material';
-import { useGetAllCommentsQuery } from 'shared/redux/slices/APISlice';
-import { getPostNumber } from 'shared/getPostNumber';
 
 const LOADING = 1;
 const LOADED = 2;
@@ -38,85 +39,87 @@ export function PostComments() {
 	);
 
 	if (commentsError) {
-		return (
-			<>
-				<div>Error</div>
-			</>
-		);
+		return <div>Error</div>;
 	}
 
-	console.log(filderedComments);
 	return (
-		<div
-			className=""
-			style={{
-				minWidth: '300px',
-				maxWidth: '800px',
-				height: '450px',
-				margin: '0 auto',
-			}}
-		>
-			<Typography variant="h4" sx={{ margin: '0 auto' }}>
-				Comments
-			</Typography>
+		<>
 			{filderedComments && (
-				<AutoSizer>
-					{({ height, width }: { height: number; width: number }) => (
-						<InfiniteLoader
-							isItemLoaded={isItemLoaded}
-							itemCount={filderedComments.length}
-							loadMoreItems={loadMoreItems}
-						>
-							{({ onItemsRendered, ref }) => (
-								<List
+				<>
+					<div
+						className=""
+						style={{
+							minWidth: '300px',
+							maxWidth: '800px',
+							height: '450px',
+							margin: '0 auto',
+						}}
+					>
+						<Typography variant="h4" sx={{ margin: '0 auto' }}>
+							Comments
+						</Typography>
+
+						<AutoSizer>
+							{({ height, width }: { height: number; width: number }) => (
+								<InfiniteLoader
+									isItemLoaded={isItemLoaded}
 									itemCount={filderedComments.length}
-									itemSize={200}
-									height={height}
-									width={width}
-									onItemsRendered={onItemsRendered}
-									ref={ref}
+									loadMoreItems={loadMoreItems}
 								>
-									{({ index, style }) => {
-										return (
-											<>
-												<Card
-													sx={{
-														...style,
-														minWidth: '300px',
-														maxWidth: '800px',
-														padding: '10px',
-														top:
-															typeof style.top === 'number'
-																? style.top + 20
-																: style.top,
-														height:
-															typeof style.height === 'number'
-																? style.height - 20
-																: style.height,
-													}}
-												>
-													<CardHeader
-														avatar={
-															<Avatar sx={{ bgcolor: '#1976d2' }}>
-																{filderedComments[index].name[0].toUpperCase()}
-															</Avatar>
-														}
-														title={filderedComments[index].name}
-														subheader={filderedComments[index].email}
-													/>
-													<CardContent>
-														{filderedComments[index].body}
-													</CardContent>
-												</Card>
-											</>
-										);
-									}}
-								</List>
+									{({ onItemsRendered, ref }) => (
+										<List
+											itemCount={filderedComments.length}
+											itemSize={200}
+											height={height}
+											width={width}
+											ref={ref}
+											onItemsRendered={onItemsRendered}
+										>
+											{({ index, style }) => {
+												return (
+													<>
+														<Card
+															sx={{
+																...style,
+																minWidth: '300px',
+																maxWidth: '800px',
+																padding: '10px',
+																top:
+																	typeof style.top === 'number'
+																		? style.top + 20
+																		: style.top,
+																height:
+																	typeof style.height === 'number'
+																		? style.height - 20
+																		: style.height,
+															}}
+														>
+															<CardHeader
+																avatar={
+																	<Avatar sx={{ bgcolor: '#1976d2' }}>
+																		{filderedComments[
+																			index
+																		].name[0].toUpperCase()}
+																	</Avatar>
+																}
+																title={filderedComments[index].name}
+																subheader={filderedComments[index].email}
+															/>
+															<CardContent>
+																{filderedComments[index].body}
+															</CardContent>
+														</Card>
+													</>
+												);
+											}}
+										</List>
+									)}
+								</InfiniteLoader>
 							)}
-						</InfiniteLoader>
-					)}
-				</AutoSizer>
+						</AutoSizer>
+					</div>
+				</>
 			)}
-		</div>
+		</>
 	);
 }

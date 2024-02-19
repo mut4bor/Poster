@@ -1,4 +1,5 @@
 import {
+	useGetAllPostsQuery,
 	useGetPostByIndexQuery,
 	useGetUserByIndexQuery,
 } from 'shared/redux/slices/APISlice';
@@ -16,17 +17,20 @@ import {
 import { getPostNumber } from 'shared/getPostNumber';
 
 export function PostDetailedCard() {
+	const navigate = useNavigate();
 	const baseURL = process.env.REACT_APP_BASE_URL;
-	const { data: postData, error: postError } = useGetPostByIndexQuery(
-		getPostNumber()
-	);
+
+	const { data: allPostsData, error: allPostsError } = useGetAllPostsQuery();
+
+	const postData = allPostsData?.find(function (item) {
+		return item.id === getPostNumber();
+	});
 
 	const { data: userData, error: userError } = useGetUserByIndexQuery(
-		postData?.userId ? postData?.userId : 0
+		postData?.userId ? postData?.userId : 1
 	);
-	const navigate = useNavigate();
 
-	if (postError || userError) {
+	if (allPostsError || userError) {
 		return (
 			<>
 				<div>Error</div>

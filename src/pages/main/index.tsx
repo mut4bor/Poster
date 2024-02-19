@@ -7,7 +7,6 @@ import { FixedSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import styles from './styles.module.scss';
-import { Box, CircularProgress } from '@mui/material';
 import { isDataNotEmpty } from 'shared/isDataNotEmpty';
 
 const LOADING = 1;
@@ -63,30 +62,9 @@ export default function MainPage() {
 									ref={ref}
 								>
 									{({ index, style }) => {
-										if (itemStatusMap[index] === LOADED) {
-											return (
-												<PostCard
-													key={index}
-													style={{
-														...style,
-														left: '50%',
-														...(isStyleTypeNumber(style.height) &&
-															isStyleTypeNumber(style.top) && {
-																height: style.height - 20,
-																top: style.top + 20,
-															}),
-													}}
-													data={{
-														index: index,
-														posts: postsData[index],
-														users: usersData[postsData[index].userId - 1],
-													}}
-												/>
-											);
-										}
-
 										return (
-											<Box
+											<PostCard
+												key={index}
 												style={{
 													...style,
 													left: '50%',
@@ -95,17 +73,14 @@ export default function MainPage() {
 															height: style.height - 20,
 															top: style.top + 20,
 														}),
-													transform: 'translateX(-50%)',
-													width: '800px',
-													display: 'flex',
-													alignItems: 'center',
-													justifyContent: 'center',
-													border: '#1976d2 1px solid',
-													borderRadius: '5px',
 												}}
-											>
-												<CircularProgress />
-											</Box>
+												data={{
+													isLoaded: itemStatusMap[index] === LOADED,
+													index: index,
+													posts: postsData[index],
+													users: usersData[postsData[index].userId - 1],
+												}}
+											/>
 										);
 									}}
 								</List>
