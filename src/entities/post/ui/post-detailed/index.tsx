@@ -1,10 +1,12 @@
 import {
   useGetAllPostsQuery,
-  useGetPostByIndexQuery,
   useGetUserByIndexQuery,
 } from 'shared/redux/slices/APISlice';
 import { useNavigate } from 'react-router-dom';
-import { PostCard } from '../post-card';
+
+import { detailedStyle } from './style';
+import { colors } from 'shared/vars';
+
 import {
   Button,
   Card,
@@ -12,6 +14,7 @@ import {
   CardContent,
   Avatar,
   Typography,
+  CircularProgress,
 } from '@mui/material';
 
 import { getPostNumber } from 'shared/getPostNumber';
@@ -40,23 +43,56 @@ export function PostDetailedCard() {
 
   return (
     <>
-      {postData && userData && (
-        <>
-          <PostCard
-            style={{
-              margin: '40px auto',
-            }}
-            ellipsis={false}
-            data={{
-              isLoaded: true,
-              posts: postData,
-              users: userData,
-              buttonText: 'Back to main page',
-            }}
-            onClick={() => navigate(`${baseURL}`)}
-          />
-        </>
-      )}
+      <Card sx={detailedStyle.card}>
+        {postData && userData ? (
+          <>
+            <CardHeader
+              avatar={
+                <Avatar sx={detailedStyle.cardHeader.avatar}>
+                  {postData.userId}
+                </Avatar>
+              }
+              title={
+                <Typography
+                  variant="subtitle1"
+                  sx={detailedStyle.cardHeader.title}
+                >
+                  {userData.name}
+                </Typography>
+              }
+              subheader={
+                <Typography
+                  variant="subtitle2"
+                  sx={detailedStyle.cardHeader.subheader}
+                >
+                  {userData.website}
+                </Typography>
+              }
+            />
+
+            <CardContent>
+              <Typography variant="h4" sx={detailedStyle.cardContent.title}>
+                {postData.title}
+              </Typography>
+
+              <Typography variant="body1" sx={detailedStyle.cardContent.body}>
+                {postData.body}
+              </Typography>
+            </CardContent>
+
+            <Button
+              variant="outlined"
+              sx={detailedStyle.button}
+              fullWidth
+              onClick={() => navigate(`${baseURL}`)}
+            >
+              Back to main page
+            </Button>
+          </>
+        ) : (
+          <CircularProgress sx={detailedStyle.circularProgress} />
+        )}
+      </Card>
     </>
   );
 }

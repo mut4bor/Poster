@@ -1,11 +1,10 @@
-import { PostDetailedCard } from 'entities/post';
-import { PostComments } from 'entities/post/ui/post-comments';
+import { PostDetailedCard, PostComments } from 'entities/post';
 
 export default function DetailsPage() {
-	return (
-		<>
-			<PostDetailedCard />
-			<PostComments />
-		</>
-	);
+  return (
+    <>
+      <PostDetailedCard />
+      <PostComments />
+    </>
+  );
 }

@@ -7,13 +7,13 @@ import { Routing } from 'pages';
 import { Suspense } from 'react';
 
 function App() {
-	return (
-		<>
-			<Suspense fallback={'Loading...'}>
-				<Routing />
-			</Suspense>
-		</>
-	);
+  return (
+    <>
+      <Suspense fallback={'Loading...'}>
+        <Routing />
+      </Suspense>
+    </>
+  );
 }
 
 export default App;

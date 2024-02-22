@@ -5,7 +5,6 @@ export const cardStyle: { [string: string]: React.CSSProperties } = {
     display: 'flex',
     gap: '10px',
     flexDirection: 'column',
-    minWidth: '300px',
     maxWidth: '800px',
     padding: '10px',
     border: '1976d2 1px solid',
